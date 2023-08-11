@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/minhquandoan/fashionshop/component"
 	"github.com/minhquandoan/fashionshop/db"
 	producttransport "github.com/minhquandoan/fashionshop/modules/product/transport"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -38,6 +39,8 @@ func main() {
 }
 
 func runService(clientDb *mongo.Client) error {
+	appCtx := component.NewAppCtx(clientDb)
+
 	r := gin.Default()
 
 	//API 
@@ -45,7 +48,7 @@ func runService(clientDb *mongo.Client) error {
 	// Products API (GET, POST, UPDATE, DELETE)
 	productGr := r.Group("/v1/product") 
 	{
-		productGr.GET("/get", producttransport.ListProduct())
+		productGr.GET("/get", producttransport.ListProduct(appCtx))
 	}
 
 	return r.Run()
