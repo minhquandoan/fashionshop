@@ -49,6 +49,7 @@ func runService(clientDb *mongo.Client) error {
 	productGr := r.Group("/v1/product") 
 	{
 		productGr.GET("/get", producttransport.ListProduct(appCtx))
+		productGr.POST("/create", producttransport.CreateOneProduct(appCtx))
 	}
 
 	return r.Run()
