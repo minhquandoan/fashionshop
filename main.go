@@ -9,8 +9,11 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/minhquandoan/fashionshop/component"
+	"github.com/minhquandoan/fashionshop/component/uploadprovider"
 	"github.com/minhquandoan/fashionshop/db"
+	"github.com/minhquandoan/fashionshop/middleware"
 	producttransport "github.com/minhquandoan/fashionshop/modules/product/transport"
+	"github.com/minhquandoan/fashionshop/modules/upload/uploadtransport"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -22,7 +25,10 @@ func main() {
 	defer cancel()
 
 	// Open DB
-	clientDb, _ := db.ConnectDb(ctx, os.Getenv("databasePath"))
+	clientDb, err := db.ConnectDb(ctx, os.Getenv("databasePath"))
+	if err != nil {
+		panic(err)
+	}
 	log.Println("Accessed to Database Successfully!!")
 	
 	//Close DB
@@ -34,22 +40,46 @@ func main() {
 		fmt.Println("Closing the Application ...")
 	}()
 
+	//S3 Service
+	s3BucketName := os.Getenv("S3BucketName")
+	s3Region := os.Getenv("S3Region")
+	s3APIKey := os.Getenv("S3APIKey")
+	s3SecretKey := os.Getenv("S3SecretKey")
+	s3Domain := os.Getenv("S3Domain")
+
+	s3Provider := uploadprovider.NewS3Provider(s3BucketName, s3Region, s3APIKey, s3SecretKey, s3Domain)
+
+	// System Secrets
+	secret := os.Getenv("SYSTEM_SECRET")
+
 	// Run all APIs
-	runService(clientDb)
+	runService(clientDb, s3Provider, &secret)
 }
 
-func runService(clientDb *mongo.Client) error {
-	appCtx := component.NewAppCtx(clientDb)
+func runService(clientDb *mongo.Client, uploadProvider uploadprovider.Provider, passSecret *string) error {
+	appCtx := component.NewAppCtx(clientDb, &uploadProvider, passSecret)
 
 	r := gin.Default()
 
-	//API 
+	// Middelwares
+	r.Use(middleware.Recover(appCtx))
+
+	//API
+	v1 := r.Group("/v1")
 	
 	// Products API (GET, POST, UPDATE, DELETE)
-	productGr := r.Group("/v1/product") 
+	productGr := v1.Group("/product") 
 	{
 		productGr.GET("/get", producttransport.ListProduct(appCtx))
+		productGr.POST("/getby", producttransport.ListProductsByFilters(appCtx))
 		productGr.POST("/create", producttransport.CreateOneProduct(appCtx))
+		productGr.PATCH("/updatebyid/:id", producttransport.UpdateOneProduct(appCtx))
+	}
+
+	// Upload Image API
+	uploadGroup := v1.Group("/upload")
+	{
+		uploadGroup.POST("/", uploadtransport.Upload(appCtx, &uploadProvider))
 	}
 
 	return r.Run()

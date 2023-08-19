@@ -4,18 +4,18 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/minhquandoan/fashionshop/common"
 	"github.com/minhquandoan/fashionshop/component"
 	"github.com/minhquandoan/fashionshop/db"
 	productbiz "github.com/minhquandoan/fashionshop/modules/product/biz"
 	productmodel "github.com/minhquandoan/fashionshop/modules/product/model"
 	productstorage "github.com/minhquandoan/fashionshop/modules/product/storage"
-	"github.com/quan-doan/golang-mongo-example/common"
 )
 
 func CreateOneProduct(appCtx component.AppContext) func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
 		dbClient := appCtx.GetDbClient()
-		productColl := db.GetCollection(dbClient, collectionName)
+		productColl := db.GetCollection(dbClient, productmodel.GetCollectionName())
 		productStore := productstorage.NewDbStore(productColl)
 		productBiz := productbiz.NewCreateProductBiz(productStore)
 		
