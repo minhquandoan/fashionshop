@@ -4,12 +4,12 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/quan-doan/golang-mongo-example/component"
-	"github.com/quan-doan/golang-mongo-example/component/hasher"
-	"github.com/quan-doan/golang-mongo-example/db"
-	"github.com/quan-doan/golang-mongo-example/modules/user/userbiz"
-	"github.com/quan-doan/golang-mongo-example/modules/user/usermodel"
-	"github.com/quan-doan/golang-mongo-example/modules/user/userstorage"
+	"github.com/minhquandoan/fashionshop/component"
+	"github.com/minhquandoan/fashionshop/component/hasher"
+	"github.com/minhquandoan/fashionshop/db"
+	"github.com/minhquandoan/fashionshop/modules/user/userbiz"
+	"github.com/minhquandoan/fashionshop/modules/user/usermodel"
+	"github.com/minhquandoan/fashionshop/modules/user/userstorage"
 )
 
 func RegisterUser(appCtx component.AppContext) func(ctx *gin.Context) {

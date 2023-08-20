@@ -13,7 +13,9 @@ import (
 	"github.com/minhquandoan/fashionshop/db"
 	"github.com/minhquandoan/fashionshop/middleware"
 	producttransport "github.com/minhquandoan/fashionshop/modules/product/transport"
+	"github.com/minhquandoan/fashionshop/modules/shop/shoptransport"
 	"github.com/minhquandoan/fashionshop/modules/upload/uploadtransport"
+	"github.com/minhquandoan/fashionshop/modules/user/usertransport"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -40,7 +42,7 @@ func main() {
 		fmt.Println("Closing the Application ...")
 	}()
 
-	//S3 Service
+	//S3 Service Config
 	s3BucketName := os.Getenv("S3BucketName")
 	s3Region := os.Getenv("S3Region")
 	s3APIKey := os.Getenv("S3APIKey")
@@ -64,7 +66,7 @@ func runService(clientDb *mongo.Client, uploadProvider uploadprovider.Provider, 
 	// Middelwares
 	r.Use(middleware.Recover(appCtx))
 
-	//API
+	//API versions
 	v1 := r.Group("/v1")
 	
 	// Products API (GET, POST, UPDATE, DELETE)
@@ -80,6 +82,22 @@ func runService(clientDb *mongo.Client, uploadProvider uploadprovider.Provider, 
 	uploadGroup := v1.Group("/upload")
 	{
 		uploadGroup.POST("/", uploadtransport.Upload(appCtx, &uploadProvider))
+	}
+
+	// User APIs
+	userGroup := r.Group("/user")
+	{
+		userGroup.POST("/register", usertransport.RegisterUser(appCtx))
+
+		userGroup.POST("/login", usertransport.AccountLogin(appCtx))
+		userGroup.POST("/likeshop", usertransport.LikeShop(appCtx))
+	}
+
+	// Shop APIs
+	shopGroup := r.Group("/v1/shop/") 
+	{
+		shopGroup.POST("/add", shoptransport.AddShop(appCtx))
+		shopGroup.GET("/get/:id", shoptransport.ListShopById(appCtx))
 	}
 
 	return r.Run()
