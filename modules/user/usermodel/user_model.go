@@ -24,13 +24,13 @@ type User struct {
 	Avatar          *common.Image `bson:"avatar,omitempty" json:"avatar,omitempty"`
 }
 
-func GetUserName() string {
+func GetCollectionName() string {
 	return CollectionName
 }
 
 type UserAccount struct {
 	Email    *string `bson:"email,omitempty" json:"email,omitempty" form:"email"`
-	Password *string `bson:"password,omitempty" json:"password,omitempty" form:"email"`
+	Password *string `bson:"password,omitempty" json:"password,omitempty" form:"password"`
 }
 
 type UserLikeShopModel struct {

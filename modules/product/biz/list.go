@@ -27,6 +27,5 @@ func (biz *listProductBiz) ListProducts(ctx context.Context, productList *[]prod
 }
 
 func (biz *listProductBiz) ListProductByFilters(ctx context.Context, filter *bson.M, paging *common.Paging, productList *[]productmodel.Product)  error {
-	err := biz.store.ListProductsByConditions(ctx, filter, paging, productList)
-	return err
+	return biz.store.ListProductsByConditions(ctx, filter, paging, productList)
 }

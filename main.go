@@ -16,6 +16,8 @@ import (
 	"github.com/minhquandoan/fashionshop/modules/shop/shoptransport"
 	"github.com/minhquandoan/fashionshop/modules/upload/uploadtransport"
 	"github.com/minhquandoan/fashionshop/modules/user/usertransport"
+	"github.com/minhquandoan/fashionshop/pubsub/localpb"
+	"github.com/minhquandoan/fashionshop/subscriber"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -59,9 +61,12 @@ func main() {
 }
 
 func runService(clientDb *mongo.Client, uploadProvider uploadprovider.Provider, passSecret *string) error {
-	appCtx := component.NewAppCtx(clientDb, &uploadProvider, passSecret)
+	appCtx := component.NewAppCtx(clientDb, &uploadProvider, passSecret, localpb.NewLocalPubSub())
 
 	r := gin.Default()
+
+	// PubSub mechanism
+	subscriber.SetUp(appCtx)
 
 	// Middelwares
 	r.Use(middleware.Recover(appCtx))
@@ -70,7 +75,7 @@ func runService(clientDb *mongo.Client, uploadProvider uploadprovider.Provider, 
 	v1 := r.Group("/v1")
 	
 	// Products API (GET, POST, UPDATE, DELETE)
-	productGr := v1.Group("/product") 
+	productGr := v1.Group("/product", middleware.RequiredAuth(appCtx)) 
 	{
 		productGr.GET("/get", producttransport.ListProduct(appCtx))
 		productGr.POST("/getby", producttransport.ListProductsByFilters(appCtx))
@@ -79,25 +84,25 @@ func runService(clientDb *mongo.Client, uploadProvider uploadprovider.Provider, 
 	}
 
 	// Upload Image API
-	uploadGroup := v1.Group("/upload")
+	uploadGroup := v1.Group("/upload", middleware.RequiredAuth(appCtx))
 	{
 		uploadGroup.POST("/", uploadtransport.Upload(appCtx, &uploadProvider))
 	}
 
 	// User APIs
-	userGroup := r.Group("/user")
+	userGroup := v1.Group("/user")
 	{
 		userGroup.POST("/register", usertransport.RegisterUser(appCtx))
-
 		userGroup.POST("/login", usertransport.AccountLogin(appCtx))
-		userGroup.POST("/likeshop", usertransport.LikeShop(appCtx))
+		userGroup.POST("/likeshop", middleware.RequiredAuth(appCtx), usertransport.LikeShop(appCtx))
 	}
 
 	// Shop APIs
-	shopGroup := r.Group("/v1/shop/") 
+	shopGroup := v1.Group("/shop", middleware.RequiredAuth(appCtx)) 
 	{
 		shopGroup.POST("/add", shoptransport.AddShop(appCtx))
-		shopGroup.GET("/get/:id", shoptransport.ListShopById(appCtx))
+		shopGroup.GET("/get:id", shoptransport.ListShopById(appCtx))
+		shopGroup.PATCH("/incrlike/:id", shoptransport.IncreaseLikedCount(appCtx))
 	}
 
 	return r.Run()

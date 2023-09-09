@@ -1,6 +1,8 @@
 package common
 
-import "strings"
+import (
+	"go.mongodb.org/mongo-driver/bson/primitive"
+)
 
 type Paging struct {
 	Page int `json:"page" form:"page"`
@@ -8,8 +10,8 @@ type Paging struct {
 	Total int `json:"total" form:"total"`
 
 	//Support cursor with UID
-	FakeCursor string `json:"cursor" form:"cursor"`
-	NextCursor string `json:"next_cursor"`
+	FakeCursor primitive.ObjectID `json:"cursor" form:"cursor"`
+	NextCursor primitive.ObjectID `json:"next_cursor"`
 }
 
 func (p *Paging) Fullfill() {
@@ -20,6 +22,4 @@ func (p *Paging) Fullfill() {
 	if p.Limit <= 0 {
 		p.Limit = 50
 	}
-
-	p.FakeCursor = strings.TrimSpace(p.FakeCursor)
 }
