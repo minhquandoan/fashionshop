@@ -1,0 +1,438 @@
+[{
+  "_id": {
+    "$oid": "64d79a9b9c822fc5e8753781"
+  },
+  "name": "Crooked Hoodies",
+  "description": "This is test update document",
+  "images": [
+    {
+      "height": 900,
+      "extension": "png"
+    }
+  ],
+  "properties": [
+    {
+      "forGender": "unisex",
+      "neckline": "Crew Neck"
+    }
+  ],
+  "variants": [
+    {
+      "erp_id": "131321",
+      "sku": "STORE22201",
+      "price": "200000",
+      "quantity": 100,
+      "image": {
+        "url": "https://tr.rbxcdn.com/43ee09be9398c102f6cf8bcc5c8b6ffc/420/420/Image/Png",
+        "width": 300,
+        "height": 300,
+        "cloudname": "S3",
+        "extension": "jpg"
+      }
+    },
+    {
+      "erp_id": "1313355666",
+      "sku": "STORE03332",
+      "price": "2060000",
+      "quantity": 200,
+      "image": {
+        "url": "https://tr.rbxcdn.com/43ee09be9398c102f6cf8bcc5c8b6ffc/420/420/Image/Png",
+        "width": 300,
+        "height": 300,
+        "cloudname": "S3",
+        "extension": "jpg"
+      }
+    }
+  ],
+  "status": 1,
+  "created_at": {
+    "$timestamp": {
+      "t": 1691851419,
+      "i": 0
+    }
+  },
+  "updated_at": {
+    "$timestamp": {
+      "t": 1691851419,
+      "i": 0
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "64e379e51010b8a8e58765e1"
+  },
+  "name": "ODIN MEN T-Shrit",
+  "description": "Test2",
+  "images": [
+    {
+      "url": "https://tr.rbxcdn.com/43ee09be9398c102f6cf8bcc5c8b6ffc/420/420/Image/Png",
+      "width": 500,
+      "height": 500,
+      "cloudname": "S3",
+      "extension": "jpg"
+    }
+  ],
+  "properties": [
+    {
+      "forGender": "male",
+      "neckline": "Crew Neck"
+    }
+  ],
+  "variants": [
+    {
+      "erp_id": "131321",
+      "sku": "STORE22201",
+      "price": "200000",
+      "quantity": 100,
+      "image": {
+        "url": "https://tr.rbxcdn.com/43ee09be9398c102f6cf8bcc5c8b6ffc/420/420/Image/Png",
+        "width": 300,
+        "height": 300,
+        "cloudname": "S3",
+        "extension": "jpg"
+      }
+    },
+    {
+      "erp_id": "1313355666",
+      "sku": "STORE03332",
+      "price": "2060000",
+      "quantity": 200,
+      "image": {
+        "url": "https://tr.rbxcdn.com/43ee09be9398c102f6cf8bcc5c8b6ffc/420/420/Image/Png",
+        "width": 300,
+        "height": 300,
+        "cloudname": "S3",
+        "extension": "jpg"
+      }
+    }
+  ],
+  "status": 1,
+  "created_at": {
+    "$timestamp": {
+      "t": 1692629477,
+      "i": 0
+    }
+  },
+  "updated_at": {
+    "$timestamp": {
+      "t": 1692629477,
+      "i": 0
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "64e379ff1010b8a8e58765e2"
+  },
+  "name": "T-LAB MEN Hoodies",
+  "description": "Test3",
+  "images": [
+    {
+      "url": "https://tr.rbxcdn.com/43ee09be9398c102f6cf8bcc5c8b6ffc/420/420/Image/Png",
+      "width": 500,
+      "height": 500,
+      "cloudname": "S3",
+      "extension": "jpg"
+    }
+  ],
+  "properties": [
+    {
+      "forGender": "male",
+      "neckline": "Crew Neck"
+    }
+  ],
+  "variants": [
+    {
+      "erp_id": "131321",
+      "sku": "STORE22201",
+      "price": "200000",
+      "quantity": 100,
+      "image": {
+        "url": "https://tr.rbxcdn.com/43ee09be9398c102f6cf8bcc5c8b6ffc/420/420/Image/Png",
+        "width": 300,
+        "height": 300,
+        "cloudname": "S3",
+        "extension": "jpg"
+      }
+    },
+    {
+      "erp_id": "1313355666",
+      "sku": "STORE03332",
+      "price": "2060000",
+      "quantity": 200,
+      "image": {
+        "url": "https://tr.rbxcdn.com/43ee09be9398c102f6cf8bcc5c8b6ffc/420/420/Image/Png",
+        "width": 300,
+        "height": 300,
+        "cloudname": "S3",
+        "extension": "jpg"
+      }
+    }
+  ],
+  "status": 1,
+  "created_at": {
+    "$timestamp": {
+      "t": 1692629503,
+      "i": 0
+    }
+  },
+  "updated_at": {
+    "$timestamp": {
+      "t": 1692629503,
+      "i": 0
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "64e37a0c1010b8a8e58765e3"
+  },
+  "name": "Nike MEN Hoodies",
+  "description": "Test4",
+  "images": [
+    {
+      "url": "https://tr.rbxcdn.com/43ee09be9398c102f6cf8bcc5c8b6ffc/420/420/Image/Png",
+      "width": 500,
+      "height": 500,
+      "cloudname": "S3",
+      "extension": "jpg"
+    }
+  ],
+  "properties": [
+    {
+      "forGender": "male",
+      "neckline": "Crew Neck"
+    }
+  ],
+  "variants": [
+    {
+      "erp_id": "131321",
+      "sku": "STORE22201",
+      "price": "200000",
+      "quantity": 100,
+      "image": {
+        "url": "https://tr.rbxcdn.com/43ee09be9398c102f6cf8bcc5c8b6ffc/420/420/Image/Png",
+        "width": 300,
+        "height": 300,
+        "cloudname": "S3",
+        "extension": "jpg"
+      }
+    },
+    {
+      "erp_id": "1313355666",
+      "sku": "STORE03332",
+      "price": "2060000",
+      "quantity": 200,
+      "image": {
+        "url": "https://tr.rbxcdn.com/43ee09be9398c102f6cf8bcc5c8b6ffc/420/420/Image/Png",
+        "width": 300,
+        "height": 300,
+        "cloudname": "S3",
+        "extension": "jpg"
+      }
+    }
+  ],
+  "status": 1,
+  "created_at": {
+    "$timestamp": {
+      "t": 1692629516,
+      "i": 0
+    }
+  },
+  "updated_at": {
+    "$timestamp": {
+      "t": 1692629516,
+      "i": 0
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "64e37a1f1010b8a8e58765e4"
+  },
+  "name": "Adidas MEN Hoodies",
+  "description": "Test4",
+  "images": [
+    {
+      "url": "https://tr.rbxcdn.com/43ee09be9398c102f6cf8bcc5c8b6ffc/420/420/Image/Png",
+      "width": 500,
+      "height": 500,
+      "cloudname": "S3",
+      "extension": "jpg"
+    }
+  ],
+  "properties": [
+    {
+      "forGender": "male",
+      "neckline": "Crew Neck"
+    }
+  ],
+  "variants": [
+    {
+      "erp_id": "131321",
+      "sku": "STORE22201",
+      "price": "200000",
+      "quantity": 100,
+      "image": {
+        "url": "https://tr.rbxcdn.com/43ee09be9398c102f6cf8bcc5c8b6ffc/420/420/Image/Png",
+        "width": 300,
+        "height": 300,
+        "cloudname": "S3",
+        "extension": "jpg"
+      }
+    },
+    {
+      "erp_id": "1313355666",
+      "sku": "STORE03332",
+      "price": "2060000",
+      "quantity": 200,
+      "image": {
+        "url": "https://tr.rbxcdn.com/43ee09be9398c102f6cf8bcc5c8b6ffc/420/420/Image/Png",
+        "width": 300,
+        "height": 300,
+        "cloudname": "S3",
+        "extension": "jpg"
+      }
+    }
+  ],
+  "status": 1,
+  "created_at": {
+    "$timestamp": {
+      "t": 1692629535,
+      "i": 0
+    }
+  },
+  "updated_at": {
+    "$timestamp": {
+      "t": 1692629535,
+      "i": 0
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "64e37b917cea7ec523fc16e0"
+  },
+  "name": "Puma Female Hoodies",
+  "description": "Test4",
+  "images": [
+    {
+      "url": "https://tr.rbxcdn.com/43ee09be9398c102f6cf8bcc5c8b6ffc/420/420/Image/Png",
+      "width": 500,
+      "height": 500,
+      "cloudname": "S3",
+      "extension": "jpg"
+    }
+  ],
+  "properties": [
+    {
+      "forGender": "male",
+      "neckline": "Crew Neck"
+    }
+  ],
+  "variants": [
+    {
+      "erp_id": "131321",
+      "sku": "STORE22201",
+      "price": "200000",
+      "quantity": 100,
+      "image": {
+        "url": "https://tr.rbxcdn.com/43ee09be9398c102f6cf8bcc5c8b6ffc/420/420/Image/Png",
+        "width": 300,
+        "height": 300,
+        "cloudname": "S3",
+        "extension": "jpg"
+      }
+    },
+    {
+      "erp_id": "1313355666",
+      "sku": "STORE03332",
+      "price": "2060000",
+      "quantity": 200,
+      "image": {
+        "url": "https://tr.rbxcdn.com/43ee09be9398c102f6cf8bcc5c8b6ffc/420/420/Image/Png",
+        "width": 300,
+        "height": 300,
+        "cloudname": "S3",
+        "extension": "jpg"
+      }
+    }
+  ],
+  "status": 1,
+  "created_at": {
+    "$timestamp": {
+      "t": 1692629905,
+      "i": 0
+    }
+  },
+  "updated_at": {
+    "$timestamp": {
+      "t": 1692629905,
+      "i": 0
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "64e37baa7cea7ec523fc16e1"
+  },
+  "name": "Puma Female Long Sleeves",
+  "description": "Test7",
+  "images": [
+    {
+      "url": "https://tr.rbxcdn.com/43ee09be9398c102f6cf8bcc5c8b6ffc/420/420/Image/Png",
+      "width": 500,
+      "height": 500,
+      "cloudname": "S3",
+      "extension": "jpg"
+    }
+  ],
+  "properties": [
+    {
+      "forGender": "female",
+      "neckline": "Crew Neck"
+    }
+  ],
+  "variants": [
+    {
+      "erp_id": "131321",
+      "sku": "STORE22201",
+      "price": "200000",
+      "quantity": 100,
+      "image": {
+        "url": "https://tr.rbxcdn.com/43ee09be9398c102f6cf8bcc5c8b6ffc/420/420/Image/Png",
+        "width": 300,
+        "height": 300,
+        "cloudname": "S3",
+        "extension": "jpg"
+      }
+    },
+    {
+      "erp_id": "1313355666",
+      "sku": "STORE03332",
+      "price": "2060000",
+      "quantity": 200,
+      "image": {
+        "url": "https://tr.rbxcdn.com/43ee09be9398c102f6cf8bcc5c8b6ffc/420/420/Image/Png",
+        "width": 300,
+        "height": 300,
+        "cloudname": "S3",
+        "extension": "jpg"
+      }
+    }
+  ],
+  "status": 1,
+  "created_at": {
+    "$timestamp": {
+      "t": 1692629930,
+      "i": 0
+    }
+  },
+  "updated_at": {
+    "$timestamp": {
+      "t": 1692629930,
+      "i": 0
+    }
+  }
+}]

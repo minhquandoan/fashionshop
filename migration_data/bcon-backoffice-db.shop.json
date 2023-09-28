@@ -1,0 +1,56 @@
+[{
+  "_id": {
+    "$oid": "64ef705cc7f1847a934ccbf4"
+  },
+  "status": 1,
+  "created_at": {
+    "$timestamp": {
+      "t": 1693413468,
+      "i": 0
+    }
+  },
+  "updated_at": {
+    "$timestamp": {
+      "t": 1693413468,
+      "i": 0
+    }
+  },
+  "name": "Crooked Shop",
+  "products": [
+    {
+      "$oid": "64d79a9b9c822fc5e8753781"
+    },
+    {
+      "$oid": "64e379e51010b8a8e58765e1"
+    }
+  ],
+  "liked_count": 1
+},
+{
+  "_id": {
+    "$oid": "64f0637a1b9a89ebd35f4938"
+  },
+  "status": 1,
+  "created_at": {
+    "$timestamp": {
+      "t": 1693475706,
+      "i": 0
+    }
+  },
+  "updated_at": {
+    "$timestamp": {
+      "t": 1693475706,
+      "i": 0
+    }
+  },
+  "name": "Nike Shop",
+  "products": [
+    {
+      "$oid": "64d79a9b9c822fc5e8753781"
+    },
+    {
+      "$oid": "64e379e51010b8a8e58765e1"
+    }
+  ],
+  "liked_count": 2
+}]

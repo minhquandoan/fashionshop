@@ -29,7 +29,7 @@ func NewShopUpdateLikedCount(id primitive.ObjectID, value int16) *ShopUpdateLike
 } 
 
 // Get, Set for ShopUpdateLikedCount model
-func (model *ShopUpdateLikedCount) GetId() primitive.ObjectID { return model.Id }
+func (model *ShopUpdateLikedCount) GetId() *primitive.ObjectID { return &model.Id }
 func (model *ShopUpdateLikedCount) GetValue() int16 { return model.Value }
 
 func GetCollectionName() string {
