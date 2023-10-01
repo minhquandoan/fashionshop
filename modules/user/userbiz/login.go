@@ -3,6 +3,7 @@ package userbiz
 import (
 	"context"
 
+	"github.com/minhquandoan/fashionshop/common"
 	"github.com/minhquandoan/fashionshop/component"
 	"github.com/minhquandoan/fashionshop/component/tokenprovider"
 	"github.com/minhquandoan/fashionshop/modules/user/usermodel"
@@ -42,20 +43,29 @@ func NewSubUserLoginBiz(store UserLoginStorage) *userLoginBiz {
 	}
 }
 
-func (biz *userLoginBiz) Login(context context.Context, credentials *usermodel.UserAccount) (*tokenprovider.Token, error) {
+func (biz *userLoginBiz) Login(ctx context.Context, credentials *usermodel.UserAccount) (*tokenprovider.Token, error) {
 	filter := bson.D{{"email", *credentials.Email}}
+
+	// Create new tracer
+	tracer, _ := common.NewTracer(ctx, "jaeger-user.biz.login")
+
 	//Get User By Email
-	user, err := biz.Store.FindUser(context, &filter)
+	_, span1 := tracer.Start(ctx, "user.biz.login_find")
+	user, err := biz.Store.FindUser(ctx, &filter)
 	if err != nil {
 		return nil, usermodel.ErrUsernameOrPasswordInvalid
 	}
+	span1.End()
 
 	//Get Salt from user then hash with Password from request
+	_, span2 := tracer.Start(ctx, "user.biz.login_hashing")
 	hashedPass := biz.Hasher.Hash(*credentials.Password + user.Salt)
 	if hashedPass != *user.Password {
 		return nil, usermodel.ErrUsernameOrPasswordInvalid
 	}
+	span2.End()
 
+	_, span3 := tracer.Start(ctx, "user.biz.login_creating-payload")
 	// create payload with user and role
 	payload := tokenprovider.TokenPayload{
 		UserId: user.Id.String(),
@@ -66,6 +76,7 @@ func (biz *userLoginBiz) Login(context context.Context, credentials *usermodel.U
 	if err != nil {
 		return nil, tokenprovider.ErrEncodingToken
 	}
+	span3.End()
 
 	return accessToken, nil
 }

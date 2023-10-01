@@ -32,23 +32,37 @@ func NewUpdateUserBiz(userStore UpdateUserStorage, shopStore ShopStorage, pb pub
 }
 
 func(biz *UpdateUserBiz) UserLikeShop(ctx context.Context, data *usermodel.UserLikeShop) (interface{}, error) {
+
+	// New Tracer
+	tracer, err := common.NewTracer(ctx, "jaeger-user.biz.likeshop")
+	if err != nil {
+		return nil, common.ErrInternal(err)
+	}
+
+	ctx1, span1 := tracer.Start(ctx, "user.biz.likeshop")
+	defer span1.End()
 	userStore  := biz.userStore
 	shopStore := biz.shopStore
 
 	// Check shop's existence
+	_, span2 := tracer.Start(ctx1, "user.biz.likeshop_checkshop")
 	shopId := data.LikedShop.Hex()
-	_, err := shopStore.ListById(ctx, &shopId)
+	_, err = shopStore.ListById(ctx, &shopId)
 	if err != nil {
 		return nil, common.ErrInvalidRequest(err)
 	}
+	span2.End()
 
 	// Check user like shop or not
+	_, span3 := tracer.Start(ctx1, "user.biz.likeshop_checkuserlikeshop")
 	liked, err := userStore.CheckUserLikeShop(ctx, data)
 	if err != nil {
 		return nil, err
 	}
-	
+	span3.End()
+
 	// If shop was liked by user, remove shopID in user (unlike) - otherwise, add shopID to user
+	_, span4 := tracer.Start(ctx1, "user.biz.likeshop_updateuserandshop")
 	var ops string
 	var value int16
 	if liked {
@@ -68,6 +82,7 @@ func(biz *UpdateUserBiz) UserLikeShop(ctx context.Context, data *usermodel.UserL
 
 	// side effect
 	_ = biz.pb.Publish(ctx, common.TopicUserLikeRestaurant, pubsub.NewMessage(shopmodel.NewShopUpdateLikedCount(data.LikedShop, value)))
+	span4.End()
 
 	return result, nil
 }

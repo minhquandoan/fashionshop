@@ -3,3 +3,5 @@
 set_env.sh
 Makefile
 deploy.sh
+setup.txt
+build

@@ -1,7 +1,6 @@
 package usertransport
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -24,7 +23,6 @@ func AccountLogin(appCtx component.AppContext) func(c *gin.Context) {
 			})
 			return
 		}
-		log.Println("====QUANDEBUG login account: ", *account.Email, *account.Password)
 
 		store := userstorage.NewUserStorage(db.GetCollection(appCtx.GetDbClient(), usermodel.CollectionName))
 		tokenProvider := jwt.NewTokenJWTProvider(*appCtx.GetSecret())

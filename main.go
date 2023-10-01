@@ -4,10 +4,12 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"net/http"
 	"os"
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/minhquandoan/fashionshop/common"
 	"github.com/minhquandoan/fashionshop/component"
 	"github.com/minhquandoan/fashionshop/component/uploadprovider"
 	"github.com/minhquandoan/fashionshop/db"
@@ -19,6 +21,8 @@ import (
 	"github.com/minhquandoan/fashionshop/pubsub/localpb"
 	"github.com/minhquandoan/fashionshop/subscriber"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
+	"go.opentelemetry.io/otel"
 )
 
 func main() {
@@ -66,7 +70,9 @@ func runService(clientDb *mongo.Client, uploadProvider uploadprovider.Provider, 
 	r := gin.Default()
 
 	// PubSub mechanism
-	subscriber.SetUp(appCtx)
+	if err := subscriber.NewConsumerEngine(appCtx).Start(); err != nil {
+		log.Fatalln(common.ErrInternal(err))
+	}
 
 	// Middelwares
 	r.Use(middleware.Recover(appCtx))
@@ -105,5 +111,19 @@ func runService(clientDb *mongo.Client, uploadProvider uploadprovider.Provider, 
 		shopGroup.PATCH("/incrlike/:id", shoptransport.IncreaseLikedCount(appCtx))
 	}
 
-	return r.Run()
+	// Set tracer provider
+	tp, err := common.NewTraceProvider(context.Background())
+	if err != nil {
+		panic(err)
+	}
+	defer func() { _ = tp.Shutdown(context.Background()) }()
+	
+	otel.SetTracerProvider(tp)
+
+	// return r.Run()
+
+	return http.ListenAndServe(
+		":8080",
+		otelhttp.NewHandler(r.Handler(), "/tracing"),
+	)
 }
